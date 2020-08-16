@@ -18,8 +18,19 @@ public class UserController {
     }
 
     @GetMapping("/get/{id}")
-    public String getById(@PathVariable("id") Integer id) {
-        return userManager.getById(id);
+    public String getById(@PathVariable("id") String id) {
+        String ret = "";
+        try{
+            int idValue = Integer.parseInt(id);
+            if (idValue <= 0){
+                ret = "输入有误！";
+            } else {
+                ret = userManager.getById(Integer.parseInt(id));
+            }
+        } catch (Exception e) {
+            ret = "输入有误！";
+        }
+        return ret;
     }
 
     @PutMapping("/update/{id}")
